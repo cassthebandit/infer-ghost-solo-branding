@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 28" width="312" height="56">
+  <!-- Icon: Missing Piece -->
+  <rect x="0.5" y="0.5" width="11.5" height="11.5" rx="2" fill="#8a7e72"/>
+  <rect x="15.5" y="0.5" width="11.5" height="11.5" rx="2" fill="#8a7e72"/>
+  <rect x="0.5" y="15.5" width="11.5" height="11.5" rx="2" fill="#8a7e72"/>
+  <rect x="16.2" y="16.2" width="10.1" height="10.1" rx="1.2" fill="none" stroke="#b8510d" stroke-width="1.4"/>
+  <!-- Wordmark: infer.blog -->
+  <text x="38" y="20.5" font-family="DM Sans, -apple-system, BlinkMacSystemFont, sans-serif" font-size="19" font-weight="600" fill="#2c2418" letter-spacing="-0.3">infer.blog</text>
+</svg>
