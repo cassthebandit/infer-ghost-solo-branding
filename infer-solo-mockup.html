@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infer — Solo Theme Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ef;
+    --bg-card: #ffffff;
+    --text: #2c2418;
+    --text-secondary: #5c5043;
+    --text-muted: #8a7e72;
+    --accent: #b8510d;
+    --accent-light: rgba(184, 81, 13, 0.08);
+    --accent-hover: #9a4410;
+    --border: #e2ddd5;
+    --border-strong: #cdc5ba;
+    --code-bg: #2c2418;
+    --code-inline-bg: #ede8e0;
+    --icon-fill: #8a7e72;
+    --radius: 0px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #111;
+    color: #eee;
+    padding: 32px 16px;
+    line-height: 1.6;
+  }
+
+  .mockup-container { max-width: 780px; margin: 0 auto; }
+
+  .mockup-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 12px;
+  }
+
+  .mockup-note {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* ═══ BROWSER CHROME ═══ */
+  .browser {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+    margin-bottom: 48px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .browser-bar {
+    background: #1e1e1e;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .browser-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .browser-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333;
+  }
+
+  .browser-url {
+    flex: 1;
+    background: #2a2a2a;
+    border-radius: 5px;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: #888;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .browser-content {
+    background: var(--bg);
+    min-height: 400px;
+  }
+
+  /* ═══ GHOST SOLO LAYOUT ═══ */
+
+  /* -- Navigation -- */
+  .gh-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gh-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+  }
+
+  .gh-nav-logo svg { width: 22px; height: 22px; }
+
+  .gh-nav-logo span {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .gh-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .gh-nav-link {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .gh-nav-link:hover { color: var(--text); }
+
+  .gh-nav-btn {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--accent);
+    padding: 7px 18px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+
+  .gh-nav-btn:hover { background: var(--accent-hover); }
+
+  /* -- Solo Welcome / Hero -- */
+  .gh-welcome {
+    padding: 48px 32px 40px;
+    background: var(--bg);
+    border-bottom: 2px solid var(--accent);
+    max-width: 100%;
+  }
+
+  .gh-welcome-inner {
+    max-width: 560px;
+  }
+
+  .gh-welcome h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .gh-welcome-text {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .gh-welcome-text em {
+    font-style: normal;
+    color: var(--text-muted);
+  }
+
+  .gh-welcome-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .gh-welcome-meta a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* -- Post Feed -- */
+  .gh-feed {
+    background: var(--bg-card);
+  }
+
+  .gh-feed-header {
+    padding: 20px 32px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gh-post-card {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+
+  .gh-post-card:hover { background: #faf8f5; }
+  .gh-post-card:last-child { border-bottom: none; }
+
+  .gh-post-card-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gh-post-card-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  .gh-post-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    margin-bottom: 5px;
+  }
+
+  .gh-post-card .excerpt {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* -- Footer -- */
+  .gh-foot {
+    padding: 20px 32px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gh-foot-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .gh-foot-logo svg { width: 14px; height: 14px; }
+
+  .gh-foot-right {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ═══ ARTICLE VIEW ═══ */
+  .gh-article {
+    background: var(--bg-card);
+    padding: 44px 32px 48px;
+  }
+
+  .gh-article-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .gh-article-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .gh-article h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .gh-article-meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .gh-article-meta .dot {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+
+  .gh-article p {
+    font-size: 16.5px;
+    line-height: 1.78;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .gh-article strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .gh-article a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .gh-article .pullquote {
+    margin: 32px 0;
+    padding: 0 0 0 22px;
+    border-left: 3px solid var(--accent);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .gh-article h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-top: 36px;
+    margin-bottom: 14px;
+  }
+
+  .gh-article .code-block {
+    background: var(--code-bg);
+    color: #d4cfc7;
+    padding: 20px 22px;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    margin: 20px 0;
+    overflow-x: auto;
+    border: 1px solid #3d3428;
+  }
+
+  .gh-article .code-block .cm { color: #7a7168; }
+  .gh-article .code-block .ky { color: #dba463; }
+  .gh-article .code-block .st { color: #a3be8c; }
+  .gh-article .code-block .fn { color: #c4a8e0; }
+
+  .gh-article code {
+    background: var(--code-inline-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14.5px;
+    color: #7a4a1a;
+  }
+
+  /* -- Author box at bottom of article -- */
+  .gh-author-box {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .gh-author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .gh-author-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .gh-author-info p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* -- Subscribe CTA (bottom of article, Solo style) -- */
+  .gh-subscribe-cta {
+    margin-top: 36px;
+    padding: 28px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .gh-subscribe-cta h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .gh-subscribe-cta p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .gh-subscribe-cta .email-row {
+    display: flex;
+    gap: 8px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .gh-subscribe-cta input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    background: var(--bg-card);
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: inherit;
+    outline: none;
+  }
+
+  .gh-subscribe-cta button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* ═══ SECTION DIVIDERS ═══ */
+  .view-break {
+    max-width: 780px;
+    margin: 16px auto 40px;
+    padding-top: 32px;
+    border-top: 1px solid #2a2a2a;
+  }
+
+  .view-break h2 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  .view-break p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 640px) {
+    .gh-nav { padding: 14px 20px; }
+    .gh-welcome { padding: 32px 20px 28px; }
+    .gh-welcome h1 { font-size: 26px; }
+    .gh-post-card { padding: 20px; }
+    .gh-article { padding: 32px 20px 36px; }
+    .gh-article h1 { font-size: 24px; }
+    .gh-foot { padding: 16px 20px; }
+    .gh-feed-header { padding: 16px 20px 10px; }
+    .gh-subscribe-cta .email-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-container">
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HOMEPAGE VIEW                          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="mockup-label">Homepage — Solo + Craftsman Modern</div>
+  <div class="mockup-note">Solo's personal intro section with your welcome message, then posts below. Subscribe exists but isn't the headline.</div>
+
+  <div class="browser">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">infer.blog</div>
+    </div>
+    <div class="browser-content">
+
+      <!-- Nav -->
+      <div class="gh-nav">
+        <a class="gh-nav-logo" href="#">
+          <svg viewBox="0 0 22 22" fill="none">
+            <rect x="0.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="12.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="0.5" y="12.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="13.2" y="13.2" width="7.6" height="7.6" rx="1" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+          </svg>
+          <span>infer</span>
+        </a>
+        <div class="gh-nav-right">
+          <a class="gh-nav-link" href="#">About</a>
+          <a class="gh-nav-link" href="#">Tags</a>
+          <a class="gh-nav-btn" href="#">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- Solo Welcome Section -->
+      <div class="gh-welcome">
+        <div class="gh-welcome-inner">
+          <h1>Learning Without Labels</h1>
+          <div class="gh-welcome-text">
+            Technology, curiosity, and the things between. I build things, break things, and write about what I find along the way. Self-hosted everything, AI as a power tool, and a healthy disregard for doing things the expensive way.
+          </div>
+          <div class="gh-welcome-text" style="margin-bottom: 0;">
+            <em>By Daniel Soteldo — COO at Revelus Dermatology, tinkerer at large.</em>
+          </div>
+          <div class="gh-welcome-meta">
+            <a href="#">Subscribe</a>
+            <span>·</span>
+            <span>Austin, TX</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Feed -->
+      <div class="gh-feed">
+        <div class="gh-feed-header">Recent</div>
+
+        <div class="gh-post-card">
+          <div class="gh-post-card-meta">
+            <span class="gh-post-card-tag">ai · debugging</span>
+            2026-03-20
+          </div>
+          <h3>Debugging the Invisible: Nemotron on OpenClaw</h3>
+          <div class="excerpt">The blank response bug wasn't in the model. It wasn't in the proxy. It was in the space between them — NVIDIA NIM duplicating reasoning tokens into both fields during streaming. Here's the full arc, the fix, and the guardrail code.</div>
+        </div>
+
+        <div class="gh-post-card">
+          <div class="gh-post-card-meta">
+            <span class="gh-post-card-tag">infrastructure</span>
+            2026-03-19
+          </div>
+          <h3>First Post — It's Alive</h3>
+          <div class="excerpt">This site was fun to deploy. Spent a bit of time with Opus working through the configs and the various setup. I've always enjoyed setting up my own resources, but this was especially fun as I've never had the time to put towards a self-hosting project like this.</div>
+        </div>
+
+        <div class="gh-post-card" style="border-bottom: none;">
+          <div class="gh-post-card-meta">
+            <span class="gh-post-card-tag">workflow</span>
+            2026-03-22
+          </div>
+          <h3>The $0 Blog Stack: Ghost, Coolify, and Cloudflare</h3>
+          <div class="excerpt">Everything running this site is free or already paid for. Ghost on Coolify, Cloudflare in front, Google Fiber underneath. Here's the full stack breakdown and what each piece actually does.</div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="gh-foot">
+        <div class="gh-foot-logo">
+          <svg viewBox="0 0 14 14" fill="none">
+            <rect x="0.5" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="8" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="0.5" y="8" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="8.4" y="8.4" width="4.7" height="4.7" rx="0.7" fill="none" stroke="var(--accent)" stroke-width="0.8"/>
+          </svg>
+          <span>infer</span>
+        </div>
+        <div class="gh-foot-right">© 2026 · Powered by Ghost</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- ARTICLE VIEW                           -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="view-break">
+    <h2>Article Reading View</h2>
+    <p>Where readers spend 95% of their time. Full post layout with your actual content, code blocks, and the subscribe CTA at the bottom.</p>
+  </div>
+
+  <div class="browser">
+    <div class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-url">infer.blog/debugging-the-invisible-nemotron-on-openclaw</div>
+    </div>
+    <div class="browser-content">
+
+      <!-- Nav (same) -->
+      <div class="gh-nav">
+        <a class="gh-nav-logo" href="#">
+          <svg viewBox="0 0 22 22" fill="none">
+            <rect x="0.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="12.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="0.5" y="12.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+            <rect x="13.2" y="13.2" width="7.6" height="7.6" rx="1" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+          </svg>
+          <span>infer</span>
+        </a>
+        <div class="gh-nav-right">
+          <a class="gh-nav-link" href="#">About</a>
+          <a class="gh-nav-link" href="#">Tags</a>
+          <a class="gh-nav-btn" href="#">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- Article -->
+      <div class="gh-article">
+        <div class="gh-article-inner">
+          <div class="gh-article-cat">AI · Debugging</div>
+          <h1>Debugging the Invisible: Nemotron on OpenClaw</h1>
+          <div class="gh-article-meta">
+            Daniel Soteldo <span class="dot"></span> 20 Mar 2026 <span class="dot"></span> 8 min read
+          </div>
+
+          <p>The motivation was simple enough: NVIDIA released Nemotron 3 Super, and free inference was available across NVIDIA NIM, OpenRouter, and Kilo. I wanted to wire it into Cass, my Discord AI agent running on OpenClaw, using LiteLLM as a proxy layer.</p>
+
+          <p>What followed was a debugging arc that surfaced two silent bugs — the kind that don't throw errors, just quietly produce wrong output. Claude wrote all the code throughout these sessions while I directed architecture decisions, debugging strategy, and verification work.</p>
+
+          <div class="pullquote">The model was thinking correctly — then saying nothing, because all the tokens had already been claimed by the reasoning phase.</div>
+
+          <h2>Bug One: The Silent Role Drop</h2>
+
+          <p>The first bug: OpenClaw was sending system prompts as <code>role: "developer"</code>, which non-OpenAI providers silently drop. No error, no warning — the model just never received its instructions. The fix was two compatibility flags:</p>
+
+          <div class="code-block"><span class="cm"># OpenClaw compatibility flags for non-OpenAI providers</span>
+<span class="ky">supportsDeveloperRole</span>: <span class="st">false</span>
+<span class="ky">supportsReasoningEffort</span>: <span class="st">true</span></div>
+
+          <h2>Bug Two: The Duplicate Stream</h2>
+
+          <p>The second bug was subtler. NVIDIA NIM was duplicating reasoning tokens into both <code>reasoning_content</code> and <code>content</code> fields during streaming, causing blank responses in OpenClaw. The model would think through the entire problem correctly, then output nothing — because every token had already been consumed by the reasoning phase.</p>
+
+          <p>The fix was a custom <code>ReasoningGuardrail</code> extending LiteLLM's <code>CustomGuardrail</code>, registered as a <code>post_call</code> hook that deduplicates the stream by suppressing <code>content</code> during the thinking phase and suppressing reasoning fields when the answer begins.</p>
+
+          <div class="code-block"><span class="cm"># The guardrail class (simplified)</span>
+<span class="ky">class</span> <span class="fn">ReasoningGuardrail</span>(<span class="fn">CustomGuardrail</span>):
+    <span class="ky">async def</span> <span class="fn">async_post_call_success_hook</span>(<span class="ky">self</span>, data, response):
+        <span class="cm"># Detect reasoning phase by checking content fields</span>
+        <span class="ky">if</span> response.reasoning_content <span class="ky">and</span> response.content:
+            <span class="cm"># Suppress duplicate content during thinking</span>
+            response.content = <span class="st">""</span>
+        <span class="ky">return</span> response</div>
+
+          <p>The full guardrail code, LiteLLM config, and README are on GitHub at <a href="#">cassthebandit/nemotron-openclaw-fix</a>. The final deployed stack runs four model backends switchable via Discord slash commands, with LiteLLM running as Docker alongside Postgres and Prometheus.</p>
+
+          <!-- Author Box -->
+          <div class="gh-author-box">
+            <div class="gh-author-avatar">DS</div>
+            <div class="gh-author-info">
+              <h4>Daniel Soteldo</h4>
+              <p>COO at Revelus Dermatology. Builds things with AI, self-hosts everything, and writes about what he finds along the way.</p>
+            </div>
+          </div>
+
+          <!-- Subscribe CTA -->
+          <div class="gh-subscribe-cta">
+            <h3>Enjoyed this?</h3>
+            <p>Get new posts delivered to your inbox. No spam, no noise.</p>
+            <div class="email-row">
+              <input type="text" placeholder="your@email.com" disabled>
+              <button>Subscribe</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="gh-foot">
+        <div class="gh-foot-logo">
+          <svg viewBox="0 0 14 14" fill="none">
+            <rect x="0.5" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="8" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="0.5" y="8" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+            <rect x="8.4" y="8.4" width="4.7" height="4.7" rx="0.7" fill="none" stroke="var(--accent)" stroke-width="0.8"/>
+          </svg>
+          <span>infer</span>
+        </div>
+        <div class="gh-foot-right">© 2026 · Powered by Ghost</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- MOBILE VIEW                            -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="view-break">
+    <h2>Mobile Viewport</h2>
+    <p>Same homepage at ~375px width. Solo is responsive by default; the Code Injection CSS will respect that.</p>
+  </div>
+
+  <div style="max-width: 375px; margin: 0 auto;">
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url" style="font-size: 10px;">infer.blog</div>
+      </div>
+      <div class="browser-content">
+        <div class="gh-nav" style="padding: 12px 16px;">
+          <a class="gh-nav-logo" href="#" style="gap: 7px;">
+            <svg viewBox="0 0 22 22" fill="none" style="width: 18px; height: 18px;">
+              <rect x="0.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+              <rect x="12.5" y="0.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+              <rect x="0.5" y="12.5" width="9" height="9" rx="1.6" fill="var(--icon-fill)"/>
+              <rect x="13.2" y="13.2" width="7.6" height="7.6" rx="1" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+            </svg>
+            <span style="font-size: 15px;">infer</span>
+          </a>
+          <div class="gh-nav-right" style="gap: 12px;">
+            <a class="gh-nav-btn" href="#" style="font-size: 11px; padding: 5px 12px;">Subscribe</a>
+          </div>
+        </div>
+
+        <div class="gh-welcome" style="padding: 28px 16px 24px;">
+          <div class="gh-welcome-inner">
+            <h1 style="font-size: 24px; margin-bottom: 8px;">Learning Without Labels</h1>
+            <div class="gh-welcome-text" style="font-size: 14px;">Technology, curiosity, and the things between.</div>
+            <div class="gh-welcome-text" style="font-size: 14px; margin-bottom: 0;"><em>By Daniel Soteldo</em></div>
+          </div>
+        </div>
+
+        <div class="gh-feed">
+          <div class="gh-feed-header" style="padding: 14px 16px 8px;">Recent</div>
+
+          <div class="gh-post-card" style="padding: 16px;">
+            <div class="gh-post-card-meta">
+              <span class="gh-post-card-tag">ai · debugging</span>
+              2026-03-20
+            </div>
+            <h3 style="font-size: 16px;">Debugging the Invisible: Nemotron on OpenClaw</h3>
+            <div class="excerpt" style="font-size: 13px;">The blank response bug wasn't in the model. It was in the space between them.</div>
+          </div>
+
+          <div class="gh-post-card" style="padding: 16px; border-bottom: none;">
+            <div class="gh-post-card-meta">
+              <span class="gh-post-card-tag">infrastructure</span>
+              2026-03-19
+            </div>
+            <h3 style="font-size: 16px;">First Post — It's Alive</h3>
+            <div class="excerpt" style="font-size: 13px;">This site was fun to deploy. Spent a bit of time with Opus working through the configs.</div>
+          </div>
+        </div>
+
+        <div class="gh-foot" style="padding: 14px 16px;">
+          <div class="gh-foot-logo">
+            <svg viewBox="0 0 14 14" fill="none" style="width: 12px; height: 12px;">
+              <rect x="0.5" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+              <rect x="8" y="0.5" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+              <rect x="0.5" y="8" width="5.5" height="5.5" rx="1" fill="var(--icon-fill)"/>
+              <rect x="8.4" y="8.4" width="4.7" height="4.7" rx="0.7" fill="none" stroke="var(--accent)" stroke-width="0.8"/>
+            </svg>
+            <span style="font-size: 11px;">infer</span>
+          </div>
+          <div class="gh-foot-right" style="font-size: 10px;">© 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

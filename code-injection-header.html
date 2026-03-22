@@ -1,0 +1,673 @@
+<!--
+  infer.blog — Code Injection: Site Header
+  Theme: Solo v1.0.0 (Ghost Official)
+  Palette: Craftsman Modern
+  Font: DM Sans + DM Mono
+
+  Based on Solo's actual source: github.com/TryGhost/Solo
+  Feed converted from Solo's side-by-side Classic layout to a
+  vertical card grid (image on top, content below, 3 columns).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+/* ── Custom Properties ── */
+:root {
+    --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
+    --infer-accent: #b8510d;
+    --infer-bg-hover: #faf8f5;
+    --infer-border: #e2ddd5;
+    --infer-border-strong: #cdc5ba;
+    --infer-code-bg: #2c2418;
+    --infer-code-inline-bg: #ede8e0;
+    --infer-code-inline-text: #7a4a1a;
+    --infer-text: #2c2418;
+    --infer-text-secondary: #5c5043;
+    --infer-text-muted: #8a7e72;
+    --gap: 24px;
+    --head-nav-gap: 24px;
+    --header-spacing: 0px;
+    --content-font-size: 1.65rem;
+    --container-width: 1200px;
+}
+
+
+/* ══════════════════════════════════════════
+   HEADER / NAV
+   ══════════════════════════════════════════ */
+
+.gh-head {
+    height: 64px !important;
+    font-size: 1.4rem !important;
+    background-color: transparent;
+    border-bottom: 1px solid var(--infer-border) !important;
+}
+
+.gh-head-logo {
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+    letter-spacing: -0.01em !important;
+}
+
+.gh-head-logo img {
+    max-height: 36px !important;
+}
+
+.gh-head-menu,
+.gh-head-link {
+    font-weight: 500 !important;
+}
+
+.gh-primary-btn {
+    border-radius: 5px !important;
+    font-size: 1.3rem !important;
+    padding: 7px 18px !important;
+    height: auto !important;
+}
+
+
+/* ══════════════════════════════════════════
+   MAIN — kill Solo's default top padding
+   ══════════════════════════════════════════ */
+
+/* Homepage only: no top padding (hero provides spacing) */
+.home-template #gh-main,
+.home-template .gh-main {
+    padding-top: 0 !important;
+    padding-bottom: 48px !important;
+}
+
+/* Post/page: restore reasonable top padding */
+.post-template #gh-main,
+.post-template .gh-main,
+.page-template #gh-main,
+.page-template .gh-main {
+    padding-top: 32px !important;
+    padding-bottom: 48px !important;
+}
+
+
+/* ══════════════════════════════════════════
+   HOMEPAGE HERO / ABOUT
+   ══════════════════════════════════════════ */
+
+.gh-about {
+    margin-bottom: 40px !important;
+    border-bottom: 2px solid var(--infer-accent) !important;
+    padding-bottom: 32px;
+}
+
+.has-side-about .gh-about {
+    margin-top: 0 !important;
+}
+
+.has-side-about .gh-about.no-image {
+    margin-top: 32px !important;
+    margin-bottom: 40px !important;
+}
+
+.has-side-about .gh-about-inner {
+    gap: 32px !important;
+}
+
+/* Solo makes content-inner sticky with top: 40px — kills layout */
+.has-side-about .gh-about-content-inner {
+    position: static !important;
+}
+
+.gh-about-primary {
+    font-size: 3.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+    max-width: 560px !important;
+}
+
+.gh-about-secondary {
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0 !important;
+    max-width: 560px !important;
+    color: var(--infer-text-secondary) !important;
+}
+
+.gh-about-primary + .gh-about-secondary {
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    margin-top: 12px !important;
+}
+
+.gh-subscribe-input {
+    border-radius: 5px !important;
+    height: 44px !important;
+    max-width: 400px !important;
+    margin-top: 24px !important;
+    font-size: 1.4rem !important;
+    background-color: var(--infer-border) !important;
+}
+
+
+/* ══════════════════════════════════════════
+   POST FEED — CARD GRID
+   Solo Classic: side-by-side flex, row-reverse
+   Override: vertical card grid, image on top
+   ══════════════════════════════════════════ */
+
+/* Make the feed a grid */
+.gh-feed {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+}
+
+/* Reset Solo's Classic card-to-card spacing */
+.has-classic-feed .gh-card + .gh-card {
+    margin-top: 0 !important;
+}
+
+.has-classic-feed .gh-card + .gh-card.no-image,
+.has-classic-feed .gh-card.no-image + .gh-card {
+    margin-top: 0 !important;
+}
+
+/* Stack card content vertically (image on top) */
+.has-classic-feed .gh-card-link {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    height: 100%;
+}
+
+/* Image fills card width */
+.has-classic-feed .gh-card-image {
+    flex: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.has-classic-feed .gh-card-image::before {
+    padding-bottom: 60% !important;
+}
+
+.has-classic-feed .gh-card-image img {
+    border-radius: 6px !important;
+}
+
+/* Content area below image */
+.has-classic-feed .gh-card-wrapper {
+    flex: 1 !important;
+    padding-top: 14px;
+}
+
+/* Card title */
+.has-classic-feed .gh-card-title,
+.has-classic-feed .kg-width-full .gh-card-title {
+    font-size: 1.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.35 !important;
+}
+
+/* Hover */
+.gh-card-link:hover {
+    opacity: 1 !important;
+}
+
+.gh-card-link:hover .gh-card-title {
+    opacity: 1 !important;
+    color: var(--infer-accent) !important;
+}
+
+/* Card meta */
+.gh-card-meta {
+    margin-top: 8px !important;
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    color: var(--infer-text-muted) !important;
+}
+
+.gh-card-date {
+    font-family: var(--font-mono) !important;
+    font-size: 1.1rem !important;
+}
+
+
+/* ══════════════════════════════════════════
+   ARTICLE PAGE
+   Solo uses a 12-column .gh-canvas grid:
+   - Header in cols 4/span 9
+   - Title in cols 1/span 9 (clamp 4rem→7.2rem, weight 800)
+   - Author meta absolutely positioned in cols 1/span 3
+   - Content in cols 4/span 6
+   - Feature image in cols 1/span 12
+   ══════════════════════════════════════════ */
+
+/* Article header — Solo: margin-bottom clamp(4.8rem→6.4rem) */
+.gh-content .gh-article-header {
+    margin-bottom: 24px !important;
+}
+
+/* Title — force our size. Solo's selector has grid-column which
+   doesn't affect font-size, but the clamp() has high specificity
+   in the cascade. Use the same selector pattern. */
+.gh-article-title,
+.gh-canvas .gh-article-title {
+    font-size: 3.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.025em !important;
+}
+
+.gh-article-excerpt,
+.gh-canvas .gh-article-excerpt {
+    font-size: 1.8rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    margin-top: 12px !important;
+}
+
+/* Feature image — Solo: margin-top clamp(4rem→8rem) */
+.gh-article-image {
+    margin-top: 24px !important;
+}
+
+/* Author meta sidebar */
+.gh-article-meta .gh-author-image {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+.gh-article-meta .gh-author-name-list a {
+    font-size: 1.6rem !important;
+    font-weight: 600 !important;
+}
+
+.gh-article-date {
+    font-family: var(--font-mono) !important;
+    font-size: 1.3rem !important;
+}
+
+.gh-article-tag {
+    color: var(--infer-accent) !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    border-color: var(--infer-border) !important;
+    padding: 2px 10px !important;
+}
+
+/* Author meta sticky — Solo: top 48px */
+.gh-article-meta-inner {
+    top: 32px !important;
+}
+
+/* Content area — Solo: margin-top clamp(4rem→8rem)
+   Also override the --content-spacing-multiplier which
+   Solo sets to 1.5 (adds extra space between paragraphs) */
+.gh-content {
+    --content-spacing-multiplier: 1.2;
+    font-size: 1.65rem !important;
+    line-height: 1.78 !important;
+    margin-top: 24px !important;
+}
+
+:is(.post-template, .page-template) .no-image .gh-content {
+    margin-top: 24px !important;
+}
+
+.gh-content h2 {
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.gh-content h3 {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+}
+
+.gh-content > [id] {
+    font-weight: 700 !important;
+}
+
+.gh-content a {
+    color: var(--infer-accent) !important;
+    text-underline-offset: 2px !important;
+}
+
+/* Blockquotes */
+.gh-content blockquote,
+.gh-content .kg-blockquote-alt {
+    border-left: 3px solid var(--infer-accent) !important;
+    font-style: italic !important;
+    padding-left: 22px !important;
+}
+
+/* Horizontal rules — Solo: rgba(0,0,0,0.08) nearly invisible on parchment */
+.gh-content hr {
+    background-color: var(--infer-border) !important;
+}
+
+/* Code blocks */
+.gh-content pre,
+.gh-content pre[class*="language-"] {
+    background: var(--infer-code-bg) !important;
+    color: #d4cfc7 !important;
+    border: 1px solid #3d3428 !important;
+    border-radius: 6px !important;
+    font-family: var(--font-mono) !important;
+    font-size: 1.3rem !important;
+    line-height: 1.65 !important;
+}
+
+.gh-content pre code {
+    font-family: var(--font-mono) !important;
+    background: transparent !important;
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+/* Inline code */
+.gh-content code:not(pre code) {
+    background: var(--infer-code-inline-bg) !important;
+    color: var(--infer-code-inline-text) !important;
+    font-family: var(--font-mono) !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-size: 0.9em !important;
+}
+
+/* Prism.js syntax highlighting */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #7a7168 !important; }
+.token.property, .token.keyword, .token.tag, .token.attr-name { color: #dba463 !important; }
+.token.string, .token.attr-value, .token.boolean, .token.number { color: #a3be8c !important; }
+.token.function, .token.class-name { color: #c4a8e0 !important; }
+.token.operator, .token.punctuation { color: #b0a89e !important; }
+
+
+/* ══════════════════════════════════════════
+   IMAGES
+   ══════════════════════════════════════════ */
+
+.gh-content .kg-image-card img,
+.gh-content .kg-gallery-image img {
+    border-radius: 4px !important;
+}
+
+/* Tables — shared content.css uses white gradient backgrounds
+   on td first/last child for horizontal scroll fade. On parchment
+   bg these show as white strips at table edges. Override to
+   transparent/parchment. */
+.gh-content table:not(.gist table) {
+    background: transparent !important;
+}
+
+.gh-content table:not(.gist table) td:first-child {
+    background-image: linear-gradient(to right, #f6f3ef 50%, rgba(246, 243, 239, 0) 100%) !important;
+}
+
+.gh-content table:not(.gist table) td:last-child {
+    background-image: linear-gradient(to left, #f6f3ef 50%, rgba(246, 243, 239, 0) 100%) !important;
+}
+
+
+/* ══════════════════════════════════════════
+   TAG & AUTHOR ARCHIVE PAGES
+   Solo: 80px bottom margin on archive articles, 96px author images
+   ══════════════════════════════════════════ */
+
+:is(.tag-template, .author-template) .gh-article {
+    margin-bottom: 40px !important;
+}
+
+.author-template .gh-author-image {
+    width: 64px !important;
+    height: 64px !important;
+    margin-bottom: 16px !important;
+}
+
+.gh-author-meta {
+    font-size: 1.5rem !important;
+}
+
+
+/* ══════════════════════════════════════════
+   CTA
+   ══════════════════════════════════════════ */
+
+.gh-cta {
+    padding: 48px 32px !important;
+    margin-top: 48px !important;
+}
+
+.gh-cta-title {
+    font-size: 2.4rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 16px !important;
+}
+
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+
+.gh-foot {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+    border-top: 1px solid var(--infer-border) !important;
+}
+
+.gh-foot-inner {
+    gap: 12px !important;
+}
+
+.gh-foot-menu {
+    font-size: 1.4rem !important;
+    font-weight: 500 !important;
+}
+
+.gh-copyright {
+    font-size: 1.2rem !important;
+}
+
+
+/* ══════════════════════════════════════════
+   ARTICLE FOOTER / NAVIGATION
+   ══════════════════════════════════════════ */
+
+.gh-article-footer {
+    margin-top: 48px !important;
+}
+
+.gh-navigation {
+    font-size: 1.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+}
+
+.gh-comments {
+    margin-top: 48px !important;
+}
+
+.gh-comments .gh-comments-title {
+    font-weight: 700 !important;
+    margin-bottom: 24px !important;
+}
+
+
+/* ══════════════════════════════════════════
+   TABLES — fix white gradient strips on parchment bg
+   Shared content.css uses rgba(255,255,255,1) gradients
+   on first/last td which show as white strips on #f6f3ef
+   ══════════════════════════════════════════ */
+
+.gh-content table:not(.gist table) td:first-child {
+    background-image: linear-gradient(to right, var(--background-color, #f6f3ef) 50%, rgba(246,243,239,0) 100%) !important;
+}
+
+.gh-content table:not(.gist table) td:last-child {
+    background-image: linear-gradient(to left, var(--background-color, #f6f3ef) 50%, rgba(246,243,239,0) 100%) !important;
+}
+
+
+/* ══════════════════════════════════════════
+   TAG / AUTHOR ARCHIVE PAGES
+   Solo: 80px article bottom margin, 96px author image
+   ══════════════════════════════════════════ */
+
+:is(.tag-template, .author-template) .gh-article {
+    margin-bottom: 32px !important;
+}
+
+.author-template .gh-author-image {
+    width: 64px !important;
+    height: 64px !important;
+    margin-bottom: 16px !important;
+}
+
+.gh-author-meta {
+    font-size: 1.5rem !important;
+}
+
+
+/* ══════════════════════════════════════════
+   SELECTION HIGHLIGHT
+   ══════════════════════════════════════════ */
+
+::selection {
+    background: rgba(184, 81, 13, 0.15);
+}
+
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+
+/* Solo at ≤840px reverses .gh-about-inner to column-reverse
+   with gap: 64px — creates dead space even without an image.
+   Also has sticky positioning on content-inner with top: 40px. */
+@media (max-width: 840px) {
+    .has-side-about .gh-about-inner {
+        gap: 0 !important;
+        flex-direction: column !important;
+    }
+
+    .has-side-about .gh-about,
+    .has-side-about .gh-about.no-image {
+        margin-top: 0 !important;
+        padding-top: 24px !important;
+    }
+
+    .has-side-about .gh-about-content-inner {
+        position: static !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .gh-feed {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+    }
+
+    /* Solo at ≤991px: author image 64px, meta margin-bottom 32px.
+       Bring in line with our smaller sizing. */
+    .gh-article-meta .gh-author-image {
+        width: 48px !important;
+        height: 48px !important;
+        margin-right: 10px !important;
+    }
+
+    .gh-article-meta {
+        margin-bottom: 20px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .gh-head {
+        height: auto !important;
+    }
+
+    /* ROOT CAUSE: Solo's header.css:457 sets
+       #gh-head .gh-head-inner {
+           grid-template-rows: auto 1fr auto;
+           gap: 48px;
+       }
+       The 3 rows + 48px gaps = 160px header even though
+       menu/actions are hidden. Override to single row. */
+    #gh-head .gh-head-inner {
+        grid-template-rows: auto !important;
+        gap: 0 !important;
+    }
+
+    body:not(.is-head-open) #gh-head .gh-head-menu,
+    body:not(.is-head-open) #gh-head .gh-head-actions {
+        display: none !important;
+    }
+
+    .home-template #gh-main,
+    .home-template .gh-main {
+        padding-top: 0 !important;
+    }
+
+    .post-template #gh-main,
+    .post-template .gh-main,
+    .page-template #gh-main,
+    .page-template .gh-main {
+        padding-top: 24px !important;
+    }
+
+    .gh-about,
+    .has-side-about .gh-about,
+    .has-side-about .gh-about.no-image {
+        margin-top: 0 !important;
+        margin-bottom: 24px !important;
+        padding-top: 24px !important;
+    }
+
+    .has-side-about .gh-about-inner {
+        gap: 0 !important;
+    }
+
+    .gh-about-primary {
+        font-size: 2.6rem !important;
+    }
+
+    .gh-article-title,
+    .gh-canvas .gh-article-title {
+        font-size: 2.4rem !important;
+    }
+
+    /* On mobile, Solo stacks the author meta above content
+       instead of the sidebar. Tighten spacing. */
+    .gh-article-meta {
+        margin-bottom: 16px !important;
+    }
+
+    .gh-article-meta .gh-author-image {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .gh-feed {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+
+    /* When hamburger IS open, restore the grid for
+       Solo's mobile menu animation to work */
+    .is-head-open #gh-head .gh-head-inner {
+        grid-template-rows: auto 1fr auto !important;
+        gap: 48px !important;
+    }
+
+    .is-head-open #gh-head .gh-head-menu,
+    .is-head-open #gh-head .gh-head-actions {
+        display: flex !important;
+    }
+}
+</style>
