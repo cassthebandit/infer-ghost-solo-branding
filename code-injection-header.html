@@ -398,10 +398,15 @@
     border-radius: 4px !important;
 }
 
-/* Figcaptions — Solo: right-aligned, rgba(0,0,0,.4) color, 1.3rem */
+/* Figcaptions — Solo: right-aligned, rgba(0,0,0,.4) color, 1.3rem.
+   Appears in two locations: .gh-content (inline images/galleries)
+   and .gh-article-header (feature image caption). */
 .gh-content figcaption,
 .gh-content figcaption p,
-.gh-content figcaption span {
+.gh-content figcaption span,
+.gh-article-header figcaption,
+.gh-article-header figcaption p,
+.gh-article-header figcaption span {
     text-align: center !important;
     color: var(--infer-text-muted) !important;
     font-size: 1.35rem !important;
