@@ -1,0 +1,94 @@
+<!--
+  infer.blog — Code Injection: Site Footer
+  Theme: Solo v1.0.0 (Ghost Official)
+
+  All Tags Display — shows all tags on post pages, not just primary.
+  Solo's post.hbs uses {{#if primary_tag}} which only renders the first
+  public tag. This script reads Ghost's existing article:tag meta and
+  tag-* body classes to inject the rest.
+
+  Paste this entire block into:
+  Ghost Admin → Settings → Code injection → Site Footer
+
+  Companion CSS rule in code-injection-header.html:
+    .gh-article-tag + .gh-article-tag {
+        margin-top: 0 !important;
+    }
+-->
+<script>
+(function() {
+    'use strict';
+
+    /* Guard: only run on post/page templates */
+    var body = document.body;
+    if (!body.classList.contains('post-template') &&
+        !body.classList.contains('page-template')) {
+        return;
+    }
+
+    /* Find the existing primary tag element.
+       Solo renders it as:
+       <a class="gh-article-tag" href="/tag/{slug}/"
+          style="--tag-color: ">{Name}</a>
+       inside div.gh-article-meta-inner (a flex-column container) */
+    var primaryTagEl = document.querySelector('.gh-article-tag');
+    if (!primaryTagEl) return;
+
+    /* Read all tag names from Ghost's Open Graph meta tags.
+       Ghost outputs <meta property="article:tag" content="TagName">
+       for every public tag, in tag order. Core Ghost behavior,
+       not theme-dependent. */
+    var metaEls = document.querySelectorAll('meta[property="article:tag"]');
+    if (!metaEls || metaEls.length <= 1) return;
+
+    var tagNames = [];
+    for (var i = 0; i < metaEls.length; i++) {
+        tagNames.push(metaEls[i].getAttribute('content'));
+    }
+
+    /* Read tag slugs from body classes.
+       Ghost adds tag-{slug} to <body> for every public tag.
+       Internal tags use tag-hash-{slug} — skip those. */
+    var tagSlugs = [];
+    var allClasses = body.className.split(/\s+/);
+    for (var j = 0; j < allClasses.length; j++) {
+        var cls = allClasses[j];
+        if (cls.indexOf('tag-') === 0 && cls.indexOf('tag-hash-') !== 0) {
+            tagSlugs.push(cls.substring(4));
+        }
+    }
+
+    /* Fallback: if counts mismatch, derive slugs from names */
+    if (tagNames.length !== tagSlugs.length) {
+        tagSlugs = tagNames.map(function(name) {
+            return name.toLowerCase()
+                       .replace(/[^a-z0-9]+/g, '-')
+                       .replace(/(^-|-$)/g, '');
+        });
+    }
+
+    /* Wrap all tags in a flex container so they flow inline
+       instead of stacking as flex-column items inside
+       .gh-article-meta-inner.
+       The wrapper gets margin-top:20px to match Solo's original
+       spacing between the date and the first tag pill. */
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:20px;';
+
+    /* Move the primary tag into the wrapper (remove its own margin) */
+    primaryTagEl.style.marginTop = '0';
+    var parent = primaryTagEl.parentNode;
+    parent.insertBefore(wrapper, primaryTagEl);
+    wrapper.appendChild(primaryTagEl);
+
+    /* Add the remaining tags */
+    for (var k = 1; k < tagNames.length; k++) {
+        var a = document.createElement('a');
+        a.className = 'gh-article-tag';
+        a.href = '/tag/' + tagSlugs[k] + '/';
+        a.style.cssText = '--tag-color: ; margin-top: 0;';
+        a.textContent = tagNames[k];
+        wrapper.appendChild(a);
+    }
+})();
+</script>

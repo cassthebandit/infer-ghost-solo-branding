@@ -1,6 +1,6 @@
 # infer-ghost-solo-branding
 
-Brand identity and Code Injection CSS for [infer.blog](https://infer.blog), built on Ghost's [Solo](https://github.com/TryGhost/Solo) theme.
+Brand identity and Code Injection CSS/JS for [infer.blog](https://infer.blog), built on Ghost's [Solo](https://github.com/TryGhost/Solo) theme.
 
 No theme fork. No custom templates. Everything here works through Ghost Admin settings and Code Injection — the site survives Ghost updates and theme updates without rework.
 
@@ -9,7 +9,8 @@ No theme fork. No custom templates. Everything here works through Ghost Admin se
 ## What's in here
 
 ```
-├── code-injection-header.html   ← Paste into Ghost Admin → Settings → Code Injection → Site Header
+├── code-injection-header.html   ← Paste into Ghost Admin → Code Injection → Site Header
+├── code-injection-footer.html   ← Paste into Ghost Admin → Code Injection → Site Footer
 ├── implementation-guide.md      ← Step-by-step setup: Admin settings, members, email, verification
 ├── infer-solo-mockup.html       ← Design mockup (open in browser) — homepage, article, mobile views
 ├── logo-exporter.html           ← Renders logos in DM Sans via Google Fonts (open in browser, screenshot)
@@ -43,19 +44,24 @@ Fonts: [DM Sans](https://fonts.google.com/specimen/DM+Sans) for body/headings, [
 
 The CSS also converts Solo's Classic feed from a side-by-side flex layout to a card grid (image on top, title below, 3 columns → 2 → 1 responsive), fixes a mobile dead space bug in Solo's header, and overrides article page sizing.
 
+### All Tags Display
+
+Solo's `post.hbs` uses `{{#if primary_tag}}` which only renders the first tag on post pages. The Site Footer script fixes this without touching theme files — it reads Ghost's existing `article:tag` meta tags and `tag-{slug}` body classes, wraps all tags in a flex container, and injects the missing ones as pill links alongside the primary tag. Works on desktop (300px sticky sidebar) and mobile (inline below author info).
+
 ## Quick start
 
 1. Install Solo in Ghost Admin → Settings → Design & branding → Change theme
 2. Follow `implementation-guide.md` for Admin settings (background color, accent, navigation, header layout)
-3. Paste the contents of `code-injection-header.html` into Ghost Admin → Settings → Code Injection → Site Header
-4. Upload `infer-logo-light.png` as your publication logo
-5. Upload `infer-favicon-192.png` as your publication icon
+3. Paste `code-injection-header.html` into Ghost Admin → Settings → Code Injection → Site Header
+4. Paste `code-injection-footer.html` into Ghost Admin → Settings → Code Injection → Site Footer
+5. Upload `infer-logo-light.png` as your publication logo
+6. Upload `infer-favicon-192.png` as your publication icon
 
-The implementation guide covers members/email setup (Coolify + Mailgun), font picker gotchas, and a verification checklist.
+The implementation guide covers members/email setup (Coolify + Mailgun), the all-tags fix, and a verification checklist.
 
 ## Built with
 
-This project was built with [Claude](https://claude.ai) Opus. Opus wrote the CSS, generated the logo assets, built the mockups, and produced the implementation guide. Brand decisions, research direction, and source verification were done by [Daniel Soteldo](https://infer.blog/about/).
+This project was built with [Claude](https://claude.ai) Opus. Opus wrote the CSS, generated the logo assets, built the mockups, and produced the implementation guide. The all-tags display fix was built with Claude Opus 4.6. Brand decisions, research direction, and source verification were done by [Daniel Soteldo](https://infer.blog/about/).
 
 ## License
 

@@ -98,14 +98,9 @@ With #f6f3ef, YIQ ≈ 240 (well above the 128 dark/light threshold), so Solo wil
 
 From default.hbs line 33: adds `is-head-left-logo` to body class. Other options: "Logo in the middle" (`is-head-middle-logo`), "Stacked" (`is-head-stacked`).
 
-**Typography (Heading font / Body font) → leave both unset / default**
+**Typography → `Modern sans-serif`**
 
-Ghost 5.101.1 replaced Solo's original typography dropdown ("Modern sans-serif" / "Elegant
-serif" / "Consistent mono") with a built-in font picker. If you select a font here, Ghost
-sets `--gh-font-heading` and `--gh-font-body` CSS variables that take precedence over our
-Code Injection CSS. Leaving both unset lets our `--font-sans: 'DM Sans'` override work.
-
-Ref: github.com/TryGhost/Ghost/issues/21644 — confirms Solo was impacted by this change.
+From default.hbs line 33: when set to "Elegant serif", adds `has-serif-font`; when "Consistent mono", adds `has-mono-font`. Leaving it on sans-serif means no extra body class is added. Our Code Injection CSS overrides the --font-sans variable to DM Sans, which propagates through the theme's own var() references.
 
 ### Homepage settings
 
@@ -134,6 +129,10 @@ From default.hbs line 33: adds `has-classic-feed` to body. "Typographic" is text
 Ghost Admin → Settings → Code injection → **Site Header**
 
 Paste the entire contents of `code-injection-header.html` → Save.
+
+Ghost Admin → Settings → Code injection → **Site Footer**
+
+Paste the entire contents of `code-injection-footer.html` → Save.
 
 ### Performance decisions documented
 
@@ -179,6 +178,7 @@ Ghost Admin → Settings → Staff → your profile → Photo, bio, social links
 - [ ] Homepage: parchment bg, DM Sans, copper border under .gh-about, monospace dates
 - [ ] Homepage: secondary header text and subscribe form visible (requires members enabled)
 - [ ] Post: warm code blocks, copper blockquote borders, DM Mono inline code
+- [ ] Post: all tags display as pills in the author sidebar (not just primary tag)
 - [ ] About page: renders with warm styling
 - [ ] Mobile: responsive (Solo handles this natively)
 - [ ] Subscribe: enter email → receive magic link email → confirm → appears in Members list
@@ -215,7 +215,8 @@ infer-brand/
 │   ├── infer-favicon.svg         ← Favicon source
 │   ├── infer-favicon-{32,180,192,512}.png
 │   └── infer-icon-600.png        ← High-res icon
-├── code-injection-header.html    ← Paste into Site Header (citations inline)
+├── code-injection-header.html    ← Paste into Site Header (CSS + fonts)
+├── code-injection-footer.html    ← Paste into Site Footer (all tags display JS)
 ├── logo-exporter.html            ← Open in browser for pixel-perfect DM Sans logos
 └── implementation-guide.md       ← This file
 ```
@@ -352,6 +353,73 @@ When you're ready to add paid subscriptions:
    (e.g., content gating, upgrade CTAs)
 
 Ref: ghost.org/help/setup-members/
+
+---
+
+## Step 11: All Tags Display (Code Injection Fix)
+
+Solo's `post.hbs` uses `{{#if primary_tag}}` which only renders the first public tag
+on post pages. This is a template limitation across all Ghost official themes. Rather
+than forking the theme, this fix uses JavaScript injection to read Ghost's existing
+metadata and inject the missing tags.
+
+Ref: forum.ghost.org/t/solo-theme-show-multiple-tags/44418
+
+### How it works
+
+Ghost automatically outputs two pieces of tag data on every post page:
+
+1. `<meta property="article:tag" content="TagName">` in the `<head>` — one per public
+   tag, proper display names, in tag order.
+2. `tag-{slug}` classes on `<body>` — one per public tag, slugs only. Internal tags
+   use `tag-hash-{slug}` and are filtered out.
+
+The script reads both, pairs them by index, wraps all tags in a flex container (since
+`.gh-article-meta-inner` is a flex-column layout that would otherwise stack them
+vertically), and injects the missing tags alongside the existing primary tag.
+
+No API key. No network requests. No theme files modified.
+
+### 11a: CSS (Site Header)
+
+The CSS rule is already included in `code-injection-header.html` (after the
+`.gh-article-tag` block):
+
+```css
+/* Collapse vertical gap between tag pills so they wrap inline */
+.gh-article-tag + .gh-article-tag {
+    margin-top: 0 !important;
+}
+```
+
+### 11b: JS (Site Footer)
+
+The JavaScript is the entire contents of `code-injection-footer.html`, already
+referenced in Step 5.
+
+### 11c: Verify
+
+- [ ] Post with multiple tags: all tags display as pills in the author sidebar
+- [ ] Tags wrap inline within the 300px sidebar on desktop
+- [ ] Each tag links to its tag archive page (`/tag/{slug}/`)
+- [ ] Post with single tag: unchanged (script is a no-op)
+- [ ] Homepage: unchanged (script only runs on post/page templates)
+- [ ] Mobile: tags display inline below author info
+
+### What this does NOT fix
+
+The homepage feed cards. Solo's `loop.hbs` also uses `{{primary_tag}}` for the card
+feed, but the current Craftsman Modern card grid doesn't display tags on cards. If
+tags on feed cards are needed in the future, that would require either a theme edit
+or a Content API integration.
+
+### Edge cases handled
+
+- Posts with 0 or 1 tag: no-op
+- Internal tags (`tag-hash-*` body classes): filtered out
+- Hyphenated slugs (e.g. `self-hosting`): handled natively
+- Name/slug count mismatch: falls back to deriving slugs from tag names
+- Page templates: supported (if pages have tags)
 
 ---
 
